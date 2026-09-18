@@ -6,6 +6,8 @@ plugins {
 dependencies {
 	implementation project(':obelix-common')
 	implementation project(':obelix-quarry-api')
+
+	testImplementation testFixtures(project(':obelix-common'))
 }
 
 tasks.named("bootBuildImage") {
