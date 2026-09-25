@@ -37,9 +37,6 @@ public class ObelixQuarryController implements QuarryApi {
 			.orElseThrow(() -> new UnknownMenhirException("unknown menhir with id " + menhirId));
 	}
 
-	/**
-	 * Note that this should only be called by Asterix himself. Hopefully, no customer will ever find this endpoint...
-	 */
 	@Override
 	@DeleteMapping("/api/quarry/{menhirId}")
 	public void deleteById(@PathVariable UUID menhirId) {
