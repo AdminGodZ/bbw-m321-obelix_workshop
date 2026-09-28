@@ -3,6 +3,7 @@ package ch.bbw.obelix.webshop;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.UUID;
 
 import ch.bbw.obelix.quarry.api.QuarryApi;
@@ -29,6 +30,24 @@ class ObelixWebshopApplicationTests {
 
 	@MockitoBean
 	private QuarryApi quarryApi;
+
+	@Test
+	void oldMenhirEndpointsStillWork() {
+		var menhirId = UUID.randomUUID();
+		var menhir = new MenhirDto(menhirId, 2.5, "Granite Gaulois", DecorativenessDto.DECORATED, "Test menhir");
+		when(quarryApi.getAllMenhirs()).thenReturn(List.of(menhir));
+		when(quarryApi.getMenhirById(menhirId)).thenReturn(menhir);
+
+		webTestClient.get().uri("/api/menhirs").exchange()
+			.expectStatus().isOk()
+			.expectBodyList(MenhirDto.class).isEqualTo(List.of(menhir));
+		webTestClient.get().uri("/api/menhirs/{id}", menhirId).exchange()
+			.expectStatus().isOk()
+			.expectBody(MenhirDto.class).isEqualTo(menhir);
+		webTestClient.delete().uri("/api/quarry/{id}", menhirId).exchange()
+			.expectStatus().isOk();
+		verify(quarryApi).deleteById(menhirId);
+	}
 
 	@Test
 	void buyMenhir() {

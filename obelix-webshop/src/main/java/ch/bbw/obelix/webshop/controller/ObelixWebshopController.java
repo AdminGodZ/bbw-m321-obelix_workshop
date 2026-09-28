@@ -1,7 +1,10 @@
 package ch.bbw.obelix.webshop.controller;
 
+import java.util.List;
 import java.util.UUID;
 
+import ch.bbw.obelix.quarry.api.QuarryApi;
+import ch.bbw.obelix.quarry.dto.MenhirDto;
 import ch.bbw.obelix.webshop.dto.BasketDto;
 import ch.bbw.obelix.webshop.service.ObelixWebshopService;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +21,26 @@ import org.springframework.web.bind.annotation.RestController;
 public class ObelixWebshopController {
 
 	private final ObelixWebshopService obelixWebshopService;
+	private final QuarryApi quarryApi;
 
 	@GetMapping("/api")
 	public String welcome() {
 		return "Welcome to Obelix's Menhir Shop! The finest menhirs in all of Gaul! Ces Romains sont fous!";
+	}
+
+	@GetMapping("/api/menhirs")
+	public List<MenhirDto> getAllMenhirs() {
+		return quarryApi.getAllMenhirs();
+	}
+
+	@GetMapping("/api/menhirs/{menhirId}")
+	public MenhirDto getMenhirById(@PathVariable UUID menhirId) {
+		return quarryApi.getMenhirById(menhirId);
+	}
+
+	@DeleteMapping("/api/quarry/{menhirId}")
+	public void deleteById(@PathVariable UUID menhirId) {
+		quarryApi.deleteById(menhirId);
 	}
 
 	@PutMapping("/api/basket/offer")
