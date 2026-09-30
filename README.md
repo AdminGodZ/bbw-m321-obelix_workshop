@@ -104,3 +104,25 @@ can be started together with `docker compose up -d` and stopped with
 
 References: [Spring metrics](https://docs.spring.io/spring-boot/reference/actuator/metrics.html)
 and [Grafana data source provisioning](https://grafana.com/docs/grafana/latest/administration/provisioning/).
+
+## Code quality and versions
+
+The project uses Java 25, Spring Boot 4.1.1, Gradle 9.8.0, and the Spring dependency
+management plugin 1.1.7. Application dependency versions come from Spring Boot's
+dependency set. Local variables use `var` where Java permits it; fields, method
+parameters, and return types keep their declared types.
+
+Run the tests and build both executable applications with:
+
+```sh
+./gradlew test bootJar
+```
+
+The tests cover purchasing, the original webshop URLs, quarry inventory, and the
+Prometheus gauge changing after deletion.
+
+The assignment's SonarLint check still requires a valid scan in SonarQube for IDE
+(formerly SonarLint). Analyze the Java source and test files in all four modules.
+A temporary standalone scan was attempted on 2026-09-30, but its engine and
+analyzer APIs were incompatible, so it did not produce a valid lint result.
+The build and tests must not be treated as proof of zero SonarLint warnings.
