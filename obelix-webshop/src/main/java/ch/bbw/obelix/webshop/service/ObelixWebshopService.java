@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
+import io.micrometer.observation.Observation;
+import io.micrometer.observation.ObservationRegistry;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import ch.bbw.obelix.quarry.api.QuarryApi;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ObelixWebshopService {
 
 	private final QuarryApi quarryWebclient;
+	private final ObservationRegistry observationRegistry;
 
 	private BasketDto basket;
 
@@ -61,13 +64,17 @@ public class ObelixWebshopService {
 	}
 
 	public void exchange(UUID menhirId) {
-		var menhir = quarryWebclient.getMenhirById(menhirId);
-		var decorativeness = menhir.decorativeness();
-		if (!isGoodOffer(decorativeness)) {
-			throw new BadOfferException("Bad Offer: That won't even feed Idefix!");
-		}
-		quarryWebclient.deleteById(menhirId);
-		leave();
+		Observation.createNotStarted("webshop.purchase", observationRegistry)
+			.highCardinalityKeyValue("menhir.id", menhirId.toString())
+			.observe(() -> {
+				var menhir = quarryWebclient.getMenhirById(menhirId);
+				var decorativeness = menhir.decorativeness();
+				if (!isGoodOffer(decorativeness)) {
+					throw new BadOfferException("Bad Offer: That won't even feed Idefix!");
+				}
+				quarryWebclient.deleteById(menhirId);
+				leave();
+			});
 	}
 
 	@StandardException

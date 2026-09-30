@@ -5,6 +5,11 @@ plugins {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	api 'io.micrometer:micrometer-observation'
+	runtimeOnly 'org.springframework.boot:spring-boot-micrometer-tracing-opentelemetry'
+	runtimeOnly 'io.micrometer:micrometer-tracing-bridge-otel'
+	runtimeOnly 'org.springframework.boot:spring-boot-zipkin'
+	runtimeOnly 'io.opentelemetry:opentelemetry-exporter-zipkin'
 	api 'org.springframework.boot:spring-boot-starter-data-jpa'
 	api 'org.springframework.boot:spring-boot-starter-validation'
 	api 'org.springframework.boot:spring-boot-starter-web'

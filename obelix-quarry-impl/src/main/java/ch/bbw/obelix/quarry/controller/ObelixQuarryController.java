@@ -2,6 +2,8 @@ package ch.bbw.obelix.quarry.controller;
 
 import java.util.List;
 import java.util.UUID;
+import io.micrometer.observation.Observation;
+import io.micrometer.observation.ObservationRegistry;
 
 import ch.bbw.obelix.quarry.api.QuarryApi;
 import ch.bbw.obelix.quarry.dto.MenhirDto;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ObelixQuarryController implements QuarryApi {
 
 	private final MenhirRepository menhirRepository;
+	private final ObservationRegistry observationRegistry;
 
 	@Override
 	public List<MenhirDto> getAllMenhirs() {
@@ -27,14 +30,18 @@ public class ObelixQuarryController implements QuarryApi {
 
 	@Override
 	public MenhirDto getMenhirById(UUID menhirId) {
-		return menhirRepository.findById(menhirId)
-			.map(MenhirEntity::toDto)
-			.orElseThrow(() -> new UnknownMenhirException("unknown menhir with id " + menhirId));
+		return Observation.createNotStarted("quarry.find-menhir", observationRegistry)
+			.highCardinalityKeyValue("menhir.id", menhirId.toString())
+			.observe(() -> menhirRepository.findById(menhirId)
+				.map(MenhirEntity::toDto)
+				.orElseThrow(() -> new UnknownMenhirException("unknown menhir with id " + menhirId)));
 	}
 
 	@Override
 	public void deleteById(UUID menhirId) {
-		menhirRepository.deleteById(menhirId);
+		Observation.createNotStarted("quarry.delete-menhir", observationRegistry)
+			.highCardinalityKeyValue("menhir.id", menhirId.toString())
+			.observe(() -> menhirRepository.deleteById(menhirId));
 	}
 
 	@StandardException

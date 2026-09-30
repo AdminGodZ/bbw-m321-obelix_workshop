@@ -15,8 +15,8 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 public class QuarryClientConfiguration {
 
 	@Bean
-	QuarryApi quarryApi(@Value("${quarry.base-url}") String baseUrl) {
-		var webClient = WebClient.builder()
+	QuarryApi quarryApi(WebClient.Builder builder, @Value("${quarry.base-url}") String baseUrl) {
+		var webClient = builder
 			.baseUrl(baseUrl)
 			.defaultStatusHandler(HttpStatusCode::is4xxClientError, response -> response.createException()
 				.map(error -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unknown menhir", error)))
