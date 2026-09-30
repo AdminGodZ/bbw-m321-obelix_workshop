@@ -69,3 +69,38 @@ Menhirs are stored in an in-memory H2 database, so restarting the quarry restore
 the three default stones. Zipkin also uses in-memory storage in this setup.
 
 Spring reference: <https://docs.spring.io/spring-boot/reference/actuator/tracing.html>.
+
+## Monitor the menhir inventory
+
+The quarry registers one gauge, `quarry.menhirs`, which reads
+`MenhirRepository.count()` when metrics are requested. It becomes `quarry_menhirs`
+in Prometheus. There is no separate counter to update after a purchase.
+
+With Docker Desktop and the quarry running, start the monitoring services:
+
+```sh
+docker compose up -d prometheus grafana
+```
+
+The quarry exposes metrics at <http://localhost:8081/actuator/prometheus>.
+Prometheus scrapes them every five seconds using `host.docker.internal`, the
+Docker Desktop address for services running on your Mac.
+Open <http://localhost:9090>, enter `quarry_menhirs`, and run the query.
+The initial value is 3; after buying a stone it becomes 2 on the next scrape.
+
+Grafana's Prometheus data source is configured automatically. Create the panel:
+
+1. Open <http://localhost:3000>. On the first run, log in with `admin` / `admin`
+   and choose a new password.
+2. Create a dashboard and add a visualization using the **Prometheus** data source.
+3. Switch the query editor to **Code** and enter `quarry_menhirs`.
+4. Choose **Stat**, enable the **Instant** query, and name the panel **Available menhirs**.
+5. Save the dashboard and set its refresh interval to **5s**.
+
+The named `grafana-data` volume preserves your password and dashboard across
+`docker compose down` and subsequent starts. All three infrastructure services
+can be started together with `docker compose up -d` and stopped with
+`docker compose down`.
+
+References: [Spring metrics](https://docs.spring.io/spring-boot/reference/actuator/metrics.html)
+and [Grafana data source provisioning](https://grafana.com/docs/grafana/latest/administration/provisioning/).

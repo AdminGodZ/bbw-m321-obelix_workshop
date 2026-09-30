@@ -21,6 +21,7 @@ class ObelixQuarryApplicationTests {
 
 	@Test
 	void listFindAndDeleteMenhir() {
+		assertMenhirGauge(3.0);
 		var menhirs = webTestClient.get().uri("/api/menhirs")
 			.exchange()
 			.expectStatus().isOk()
@@ -48,5 +49,13 @@ class ObelixQuarryApplicationTests {
 			.expectBodyList(MenhirDto.class).hasSize(2)
 			.value(remaining -> assertThat(remaining)
 				.extracting(MenhirDto::id).doesNotContain(menhir.id()));
+		assertMenhirGauge(2.0);
+	}
+
+	private void assertMenhirGauge(double expected) {
+		webTestClient.get().uri("/actuator/prometheus").exchange()
+			.expectStatus().isOk()
+			.expectBody(String.class)
+			.value(metrics -> assertThat(metrics).contains("quarry_menhirs " + expected));
 	}
 }

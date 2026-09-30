@@ -5,3 +5,8 @@ spring:
     active: common
 server:
   port: 8081
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus

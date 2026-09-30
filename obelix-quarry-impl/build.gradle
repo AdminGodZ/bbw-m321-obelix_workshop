@@ -6,6 +6,8 @@ plugins {
 dependencies {
 	implementation project(':obelix-common')
 	implementation project(':obelix-quarry-api')
+	implementation 'io.micrometer:micrometer-core'
+	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
 
 	testImplementation testFixtures(project(':obelix-common'))
 }
