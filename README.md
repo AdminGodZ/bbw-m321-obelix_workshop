@@ -37,13 +37,6 @@ Start the quarry, basket and webshop in three separate terminals:
 ./gradlew :obelix-webshop:bootRun
 ```
 
-If your shell cannot find Java installed with Homebrew, run these exports in each terminal first:
-
-```sh
-export JAVA_HOME="/opt/homebrew/opt/openjdk@25/libexec/openjdk.jdk/Contents/Home"
-export PATH="$JAVA_HOME/bin:$PATH"
-```
-
 ## Follow a purchase in Zipkin
 
 All three applications use Micrometer with the OpenTelemetry bridge and send traces
