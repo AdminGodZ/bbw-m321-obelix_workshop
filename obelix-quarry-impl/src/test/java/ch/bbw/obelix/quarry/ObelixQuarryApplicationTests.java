@@ -46,9 +46,9 @@ class ObelixQuarryApplicationTests {
 		webTestClient.get().uri("/api/menhirs")
 			.exchange()
 			.expectStatus().isOk()
-			.expectBodyList(MenhirDto.class).hasSize(2)
+			.expectBodyList(MenhirDto.class)
 			.value(remaining -> assertThat(remaining)
-				.extracting(MenhirDto::id).doesNotContain(menhir.id()));
+				.extracting(MenhirDto::id).hasSize(2).doesNotContain(menhir.id()));
 		assertMenhirGauge(2.0);
 	}
 

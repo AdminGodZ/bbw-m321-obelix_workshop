@@ -6,6 +6,7 @@ plugins {
 dependencies {
 	implementation project(':obelix-common')
 	implementation project(':obelix-quarry-api')
+	implementation project(':obelix-basket-api')
 	implementation 'org.springframework.boot:spring-boot-starter-webclient'
 
 	testImplementation testFixtures(project(':obelix-common'))

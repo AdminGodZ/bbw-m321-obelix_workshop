@@ -1,0 +1,14 @@
+plugins {
+	id 'java-library'
+	id 'org.springframework.boot'
+}
+
+dependencies {
+	implementation project(':obelix-common')
+	implementation project(':obelix-basket-api')
+	testImplementation testFixtures(project(':obelix-common'))
+}
+
+tasks.named('bootBuildImage') {
+	imageName = 'bbw/obelix-basket:latest'
+}

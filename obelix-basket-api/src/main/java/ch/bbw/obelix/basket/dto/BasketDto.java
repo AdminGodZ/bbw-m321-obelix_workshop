@@ -1,13 +1,10 @@
-package ch.bbw.obelix.webshop.dto;
+package ch.bbw.obelix.basket.dto;
 
 import java.util.List;
-
-import lombok.With;
 
 /**
  * A basket is an offer of various items in exchange for a standing stone.
  */
-@With
 public record BasketDto(List<BasketItem> items) {
 
 	public static BasketDto empty() {

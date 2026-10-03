@@ -10,7 +10,6 @@ import ch.bbw.obelix.quarry.dto.MenhirDto;
 import ch.bbw.obelix.quarry.entity.MenhirEntity;
 import ch.bbw.obelix.quarry.repository.MenhirRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.StandardException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,7 +43,10 @@ public class ObelixQuarryController implements QuarryApi {
 			.observe(() -> menhirRepository.deleteById(menhirId));
 	}
 
-	@StandardException
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public static class UnknownMenhirException extends RuntimeException {}
+	public static class UnknownMenhirException extends RuntimeException {
+		public UnknownMenhirException(String message) {
+			super(message);
+		}
+	}
 }

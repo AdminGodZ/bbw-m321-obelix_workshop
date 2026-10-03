@@ -2,14 +2,16 @@ package ch.bbw.obelix.webshop;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.never;
 
 import java.util.List;
 import java.util.UUID;
 
+import ch.bbw.obelix.basket.api.BasketApi;
+import ch.bbw.obelix.basket.dto.BasketDto;
 import ch.bbw.obelix.quarry.api.QuarryApi;
 import ch.bbw.obelix.quarry.dto.DecorativenessDto;
 import ch.bbw.obelix.quarry.dto.MenhirDto;
-import ch.bbw.obelix.webshop.dto.BasketDto;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ class ObelixWebshopApplicationTests {
 
 	@MockitoBean
 	private QuarryApi quarryApi;
+
+	@MockitoBean
+	private BasketApi basketApi;
 
 	@Test
 	void oldMenhirEndpointsStillWork() {
@@ -52,12 +57,27 @@ class ObelixWebshopApplicationTests {
 	@Test
 	void buyMenhir() {
 		var anyId = UUID.randomUUID();
+		var item = new BasketDto.BasketItem("boar", 2);
+		var basket = new BasketDto(List.of(item));
 		when(quarryApi.getMenhirById(anyId))
 			.thenReturn(new MenhirDto(anyId, 2.5, "Granite Gaulois", DecorativenessDto.DECORATED, "Test menhir"));
+		when(basketApi.getBasket()).thenReturn(BasketDto.empty(), basket, BasketDto.empty());
+		when(basketApi.offer(item)).thenReturn(basket);
 		webTestClient.post().uri("/api/basket/buy/{id}", anyId).exchange().expectStatus().isBadRequest();
-		webTestClient.put().uri("/api/basket/offer").bodyValue(new BasketDto.BasketItem("boar", 2)).exchange().expectStatus().isOk();
+		verify(quarryApi, never()).deleteById(anyId);
+		verify(basketApi, never()).leave();
+		webTestClient.put().uri("/api/basket/offer").bodyValue(item).exchange()
+			.expectStatus().isOk().expectBody(BasketDto.class).isEqualTo(basket);
+		verify(basketApi).offer(item);
 		webTestClient.post().uri("/api/basket/buy/{id}", anyId).exchange().expectStatus().isOk();
 		verify(quarryApi).deleteById(anyId);
+		verify(basketApi).leave();
 		webTestClient.post().uri("/api/basket/buy/{id}", anyId).exchange().expectStatus().isBadRequest();
+	}
+
+	@Test
+	void oldBasketResetEndpointStillWorks() {
+		webTestClient.delete().uri("/api/basket").exchange().expectStatus().isOk();
+		verify(basketApi).leave();
 	}
 }

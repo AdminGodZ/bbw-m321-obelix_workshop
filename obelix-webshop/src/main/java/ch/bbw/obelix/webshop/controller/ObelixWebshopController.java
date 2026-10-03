@@ -3,9 +3,10 @@ package ch.bbw.obelix.webshop.controller;
 import java.util.List;
 import java.util.UUID;
 
+import ch.bbw.obelix.basket.api.BasketApi;
+import ch.bbw.obelix.basket.dto.BasketDto;
 import ch.bbw.obelix.quarry.api.QuarryApi;
 import ch.bbw.obelix.quarry.dto.MenhirDto;
-import ch.bbw.obelix.webshop.dto.BasketDto;
 import ch.bbw.obelix.webshop.service.ObelixWebshopService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +23,7 @@ public class ObelixWebshopController {
 
 	private final ObelixWebshopService obelixWebshopService;
 	private final QuarryApi quarryApi;
+	private final BasketApi basketApi;
 
 	@GetMapping("/api")
 	public String welcome() {
@@ -43,14 +45,19 @@ public class ObelixWebshopController {
 		quarryApi.deleteById(menhirId);
 	}
 
+	@GetMapping("/api/basket")
+	public BasketDto getBasket() {
+		return basketApi.getBasket();
+	}
+
 	@PutMapping("/api/basket/offer")
 	public BasketDto offer(@RequestBody BasketDto.BasketItem basketItem) {
-		return obelixWebshopService.offer(basketItem);
+		return basketApi.offer(basketItem);
 	}
 
 	@DeleteMapping("/api/basket")
 	public void leave() {
-		obelixWebshopService.leave();
+		basketApi.leave();
 	}
 
 	/**

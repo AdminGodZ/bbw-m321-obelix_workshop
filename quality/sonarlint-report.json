@@ -1,0 +1,131 @@
+{
+  "scanDate": "2026-10-03",
+  "mode": "local standalone SonarLint language server",
+  "languageServerVersion": "6.0.2.79770",
+  "javaAnalyzerVersion": "8.44.0.48651",
+  "javaAdvancedAnalyzerVersion": "8.16.4.1912",
+  "javaSourceVersion": 25,
+  "ruleProfile": "default standalone Java rules; no rules disabled",
+  "scope": "Java source and test files in all six Gradle modules; generated build/bin files excluded",
+  "scannedFiles": 22,
+  "issueCount": 0,
+  "unresolvedTypes": false,
+  "missingResults": 0,
+  "controlCheck": {
+    "rule": "java:S106",
+    "detected": true,
+    "fileWasTemporary": true
+  },
+  "files": [
+    {
+      "path": "obelix-common/src/main/java/ch/bbw/obelix/common/CommonConfiguration.java",
+      "sha256": "5f741fcd8ce186dc1df29f5eec580b82eb78f814494e446af240e8e566cf8800",
+      "issues": 0
+    },
+    {
+      "path": "obelix-quarry-api/src/main/java/ch/bbw/obelix/quarry/api/QuarryApi.java",
+      "sha256": "270454a87411c66316449060c95b8f272b761a2e690765d4c24f7b54199df0c0",
+      "issues": 0
+    },
+    {
+      "path": "obelix-quarry-api/src/main/java/ch/bbw/obelix/quarry/dto/DecorativenessDto.java",
+      "sha256": "ba7a06129d843d658a4f005c1fcf30fe8f2e63a6334574c3e60c90d5b708cedd",
+      "issues": 0
+    },
+    {
+      "path": "obelix-quarry-api/src/main/java/ch/bbw/obelix/quarry/dto/MenhirDto.java",
+      "sha256": "a5e1aba075f597d0e9d0ef55897d98cdd9070cfd377a78c489f929be1ec3c43e",
+      "issues": 0
+    },
+    {
+      "path": "obelix-quarry-impl/src/main/java/ch/bbw/obelix/quarry/ObelixQuarryApplication.java",
+      "sha256": "01bd51de8fdc09f17634bcca1e493cb32728cf94149c2cb849571428dce262d4",
+      "issues": 0
+    },
+    {
+      "path": "obelix-quarry-impl/src/main/java/ch/bbw/obelix/quarry/QuarryMetricsConfiguration.java",
+      "sha256": "e35e9f4cdb3a0486432b431e8718391713a75487b64cf4a15cee95c95260de90",
+      "issues": 0
+    },
+    {
+      "path": "obelix-quarry-impl/src/main/java/ch/bbw/obelix/quarry/controller/ObelixQuarryController.java",
+      "sha256": "faf811c673b34e62781c1bb2c572c611c4cc24a247c10343d44d6c92f752d9d4",
+      "issues": 0
+    },
+    {
+      "path": "obelix-quarry-impl/src/main/java/ch/bbw/obelix/quarry/entity/MenhirEntity.java",
+      "sha256": "536042bc4d98b1071d9eb5b20350fa91d38b30fcc2da248ca8d7a4f0c3339a7b",
+      "issues": 0
+    },
+    {
+      "path": "obelix-quarry-impl/src/main/java/ch/bbw/obelix/quarry/repository/MenhirRepository.java",
+      "sha256": "48a3ace0e39a9c89f144a760b7fa22d22913ed17aac0ee8ff25e595f715706da",
+      "issues": 0
+    },
+    {
+      "path": "obelix-quarry-impl/src/main/java/ch/bbw/obelix/quarry/service/ObelixQuarryService.java",
+      "sha256": "41a45c406c6a068e642f2ff7c0f22d025e7346b3f25c0dcf4ce7a0ef0ec86f15",
+      "issues": 0
+    },
+    {
+      "path": "obelix-quarry-impl/src/test/java/ch/bbw/obelix/quarry/ObelixQuarryApplicationTests.java",
+      "sha256": "492c936aa21ab570345595253e1750a334d031b250811a6101cb3a8fc6a6a04c",
+      "issues": 0
+    },
+    {
+      "path": "obelix-basket-api/src/main/java/ch/bbw/obelix/basket/api/BasketApi.java",
+      "sha256": "4497d98be13cb8a76a044f59f9eb03ece891bce145227a1c141c65eef6c86299",
+      "issues": 0
+    },
+    {
+      "path": "obelix-basket-api/src/main/java/ch/bbw/obelix/basket/dto/BasketDto.java",
+      "sha256": "8d097b7e71976e6668a8ac676e654b69cb9b08428d0a1ea5d822949ebc8b1333",
+      "issues": 0
+    },
+    {
+      "path": "obelix-basket-impl/src/main/java/ch/bbw/obelix/basket/ObelixBasketApplication.java",
+      "sha256": "715b9eefe7352b3e6ba82d59a840e4e497ed89a915b27fb43f43652b4466be6d",
+      "issues": 0
+    },
+    {
+      "path": "obelix-basket-impl/src/main/java/ch/bbw/obelix/basket/controller/ObelixBasketController.java",
+      "sha256": "9685afe63a5bec847f5be35f069ec71017becf5e258b904e18c91a01b9dc3567",
+      "issues": 0
+    },
+    {
+      "path": "obelix-basket-impl/src/main/java/ch/bbw/obelix/basket/service/ObelixBasketService.java",
+      "sha256": "9835a545d9d4513ec8c0cc066e7b7905280110234aab7d4e39c3b2f3be528876",
+      "issues": 0
+    },
+    {
+      "path": "obelix-basket-impl/src/test/java/ch/bbw/obelix/basket/ObelixBasketApplicationTests.java",
+      "sha256": "37ba610abb197d4cb8b018190250ee65dcd4b7120debd5c12611c9ea9f5ca198",
+      "issues": 0
+    },
+    {
+      "path": "obelix-webshop/src/main/java/ch/bbw/obelix/webshop/ObelixWebshopApplication.java",
+      "sha256": "3ddd92e86bb7789cfc18b15985dad33a60c2bd79f770e19e01a4222e8b36ad8d",
+      "issues": 0
+    },
+    {
+      "path": "obelix-webshop/src/main/java/ch/bbw/obelix/webshop/client/ServiceClientConfiguration.java",
+      "sha256": "0cc0fc7e8d09ea566521c77ec32bd4e68a49461562305b5a5e0d4e09629cefc6",
+      "issues": 0
+    },
+    {
+      "path": "obelix-webshop/src/main/java/ch/bbw/obelix/webshop/controller/ObelixWebshopController.java",
+      "sha256": "3487a67ba43a30c0a079b60f304aa269c5ed3c49bcf6f6793e8d20c570cdab5a",
+      "issues": 0
+    },
+    {
+      "path": "obelix-webshop/src/main/java/ch/bbw/obelix/webshop/service/ObelixWebshopService.java",
+      "sha256": "9ba397979ac1e7ceef8ce578a7fcd085ca2d60fb7db05f099b9ba1b555f8a56b",
+      "issues": 0
+    },
+    {
+      "path": "obelix-webshop/src/test/java/ch/bbw/obelix/webshop/ObelixWebshopApplicationTests.java",
+      "sha256": "7f3b231da691d8343cb94d2942e0615e53df0c7015f9b091be75788b499b2cc5",
+      "issues": 0
+    }
+  ]
+}
